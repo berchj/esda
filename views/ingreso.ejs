@@ -1,0 +1,17 @@
+<div class="ingreso">
+    <section class="content">
+        <h4>Ingreso admin</h4>
+        <% if ( message && message.length > 0 ){ %>
+            <span><%=message%></span>
+        <% } %>
+        <form action="/procesar_ingreso" method="post">
+            <fieldset>
+                <label for="email">Usuario</label>
+                <input type="email" name="email" id="">            
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" id="">
+                <input type="submit" value="ingresar">
+            </fieldset>
+        </form>
+    </section>
+</div>

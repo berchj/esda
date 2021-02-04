@@ -1,0 +1,20 @@
+<div class="episodios">
+    <section class="content">
+        <%- include('./partials/public_header')%>
+        <section class="episodios-content">
+            <% if(message && message.length > 0) {%>
+                <span><%=message%></span>
+            <% } %>          
+            <% for(let i = 0; i < data.length; i ++){ %>
+                <article class="episodio">
+                    <ul>
+                        <li> <a href="/episodio/<%=data[i].id%>"><%=data[i].title%></a></li>
+                        <li><%=data[i].description%></li>
+                        <li><%=data[i].points%></li>
+                    </ul>
+                </article>
+            <% } %>
+        </section>
+        <%- include('./partials/footer')%>
+    </section>
+</div>

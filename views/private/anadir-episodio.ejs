@@ -1,0 +1,21 @@
+<div class="ingreso">
+    <section class="content">
+        <%- include('../partials/private_header')%>
+        <h4>añadir episodio</h4>
+        <% if ( message && message.length > 0 ){ %>
+            <span><%=message%></span>
+        <% } %>
+        <form action="/procesar_anadir" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <label for="title">titulo</label>
+                <input type="text" name="title" id="">            
+                <label for="description">descripción</label>
+                <textarea name="description" id="" cols="30" rows="10"></textarea>
+                <label for="image">Imagen</label>
+                <input type="file" name="image" id="">
+                <input type="submit" value="añadir">
+            </fieldset>
+        </form>
+        <%- include('../partials/footer')%>
+    </section>
+</div>
