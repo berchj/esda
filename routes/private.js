@@ -22,7 +22,7 @@ router.post('/procesar_ingreso',(req,res)=>{
             if(rows.length > 0){
                 res.status(200)
                 req.session.user = rows[0]
-                res.render('private/p_index',{user:req.session.user})                
+                res.redirect('/private/p_index')             
             }else{
                 res.status(404)
                 req.flash('message','email o contraseña invalida')
@@ -31,6 +31,19 @@ router.post('/procesar_ingreso',(req,res)=>{
         })
         connection.release()
     })
+})
+
+router.get('/private/p_index',(req,res)=>{
+    pool.getConnection((error,connection)=>{
+        if (error) throw error
+        let q = `SELECT * FROM episodes`
+        connection.query(q,(error,rows,fields)=>{
+            if (error) throw error
+            res.status(200)
+            res.render('private/p_index',{user:req.session.user,data:rows,message:req.flash('message')})
+        })
+        connection.release()
+    })    
 })
 
 router.get('/private/anadir-episodio',(req,res)=>{
@@ -84,6 +97,39 @@ router.post('/procesar_anadir',(req,res)=>{
         })
         connection.release()                    
     })
+})
+
+router.get('/private/editar-episodio/:id',(req,res)=>{
+    pool.getConnection((error,connection)=>{
+        if (error) throw error
+        let q = `SELECT * FROM episodes WHERE id = ${connection.escape(req.params.id)}`
+        connection.query(q,(error,rows,fields)=>{
+            if (error) throw error
+            if(rows.length > 0){
+                res.status(200)
+                res.render('private/editar-episodio',{data:rows[0],user:req.session.user})
+            }else{
+                res.status(404)
+                req.flash('message','El episodio no existe')
+                res.redirect('/private/p_index')
+            }
+        })
+        connection.release()
+    })
+})
+
+router.post('/procesar_editar',(req,res)=>{
+    console.log(req.body,req.files)
+})
+
+router.get('/procesar_cerrar_sesion',(req,res)=>{
+    if(req.session.user){
+        req.session.destroy((error)=>{
+            if (error) throw error
+            res.status(200)
+            res.redirect('/')
+        })
+    }
 })
 
 module.exports = router

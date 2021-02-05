@@ -2,7 +2,26 @@
     <section class="content">
        <%- include('../partials/private_header')%> 
        <section class="admin-actions">
+        <% if(message && message.length > 0) {%>
+            <span><%=message%></span>
+        <% } %>
            <a href="/private/anadir-episodio">Añadir episodio</a>
+           <div class="tabla-episodios">
+               <table>
+                   <thead>
+                       <th>titulo</th>
+                       <th>puntos</th>                                              
+                   </thead>
+                   <tbody>
+                       <% for(let i = 0; i < data.length; i ++) { %>
+                            <tr>
+                                <td><a href="/private/editar-episodio/<%=data[i].id%>"><%=data[i].title%></a></td>
+                                <td><%=data[i].points%></td>
+                            </tr>
+                       <% } %>
+                   </tbody>
+               </table>
+           </div>
        </section>
        <%- include('../partials/footer')%>
     </section>

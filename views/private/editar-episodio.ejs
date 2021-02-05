@@ -1,0 +1,31 @@
+<div class="episodio">
+    <section class="content">
+        <%- include('../partials/private_header')%>
+        <section class="episodio-content">              
+                <article class="episodio">
+                    <h4>datos actuales del episodio: </h4>
+                    <ul>
+                        <li><%=data.title%></li>
+                        <li><%=data.description%></li>
+                        <li><%=data.points%></li>
+                    </ul>
+                </article>            
+        </section>
+        <section class="editar">
+            <h4>actualizar datos: </h4>
+            <form action="/procesar_editar" method="POST" enctype="multipart/form-data">
+                <fieldset>
+                    <input type="hidden" name="id" value="<%=data.id%>">
+                    <label for="title">titulo</label>
+                    <input type="text" name="title" id="">
+                    <label for="description">descripcion</label>
+                    <textarea name="description" id="" cols="30" rows="10"></textarea>
+                    <label for="image">image</label>
+                    <input type="file" name="image" id="">
+                    <input type="submit" value="actualizar">
+                </fieldset>
+            </form>
+        </section>
+        <%- include('../partials/footer')%>
+    </section>
+</div>
