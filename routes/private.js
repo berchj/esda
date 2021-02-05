@@ -107,7 +107,7 @@ router.get('/private/editar-episodio/:id',(req,res)=>{
             if (error) throw error
             if(rows.length > 0){
                 res.status(200)
-                res.render('private/editar-episodio',{data:rows[0],user:req.session.user})
+                res.render('private/editar-episodio',{data:rows[0],user:req.session.user,message:req.flash('message')})
             }else{
                 res.status(404)
                 req.flash('message','El episodio no existe')
@@ -119,7 +119,28 @@ router.get('/private/editar-episodio/:id',(req,res)=>{
 })
 
 router.post('/procesar_editar',(req,res)=>{
-    console.log(req.body,req.files)
+    console.log(req.body)
+    pool.getConnection((error,connection)=>{
+        if (error) throw error
+        let q = `SELECT * FROM episodes WHERE title = ${connection.escape(req.body.title)}`
+        connection.query(q,(error,rows,fields)=>{  
+            if (error) throw error
+            if(rows.length > 0){
+                req.flash('message','ese titulo ya existe')
+                res.redirect(`/private/editar-episodio/${req.body.id}`)
+            }else{
+                let q1 = `SELECT * FROM episodes WHERE description = ${connection.escape(req.body.description)}`
+                connection.query(q1,(error,rows,fields)=>{
+                    if (error) throw error
+                    if(rows.length > 0){
+                        req.flash('message','esa descripcion ya existe')
+                        res.redirect(`/private/editar-episodio/${connection.escape(req.body.id)}`)
+                    }
+                })
+            }
+        })
+        connection.release()
+    })
 })
 
 router.get('/procesar_cerrar_sesion',(req,res)=>{

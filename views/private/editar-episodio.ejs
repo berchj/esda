@@ -1,7 +1,10 @@
 <div class="episodio">
     <section class="content">
         <%- include('../partials/private_header')%>
-        <section class="episodio-content">              
+        <section class="episodio-content">   
+            <% if(message && message.length > 0) { %>
+                <span><%=message%></span>           
+            <% } %>
                 <article class="episodio">
                     <h4>datos actuales del episodio: </h4>
                     <ul>
