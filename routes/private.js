@@ -120,21 +120,47 @@ router.get('/private/editar-episodio/:id',(req,res)=>{
 
 router.post('/procesar_editar',(req,res)=>{
     console.log(req.body)
+    console.log(req.files.image.name)
     pool.getConnection((error,connection)=>{
         if (error) throw error
-        let q = `SELECT * FROM episodes WHERE title = ${connection.escape(req.body.title)}`
+        let q = `SELECT * FROM episodes WHERE title = ${connection.escape(req.body.title.trim().toLowerCase())}`
         connection.query(q,(error,rows,fields)=>{  
             if (error) throw error
             if(rows.length > 0){
                 req.flash('message','ese titulo ya existe')
                 res.redirect(`/private/editar-episodio/${req.body.id}`)
             }else{
-                let q1 = `SELECT * FROM episodes WHERE description = ${connection.escape(req.body.description)}`
+                let q1 = `SELECT * FROM episodes WHERE description = ${connection.escape(req.body.description.trim().toLowerCase())}`
                 connection.query(q1,(error,rows,fields)=>{
                     if (error) throw error
                     if(rows.length > 0){
                         req.flash('message','esa descripcion ya existe')
-                        res.redirect(`/private/editar-episodio/${connection.escape(req.body.id)}`)
+                        res.redirect(`/private/editar-episodio/${req.body.id}`)
+                    }else{
+                        let q2 = `SELECT * FROM episodes WHERE image = ${connection.escape(req.files.image.name)}`
+                        connection.query(q2,(error,rows,fields)=>{
+                            if (error) throw error
+                            if(rows.length > 0){
+                                req.flash('message','imagen repetida.')
+                                res.redirect(`/private/editar-episodio/${req.body.id}`)                                
+                            }else{
+                                if(req.files && req.files.image){
+                                    req.files.image.mv(`public/images/${req.files.image.name.trim().toLowerCase()}`,(error)=>{
+                                        if (error) throw error
+                                        let q3 = `UPDATE episodes SET title = ${connection.escape(req.body.title)},
+                                                                      description  = ${connection.escape(req.body.description)},
+                                                                      image = ${connection.escape(req.files.image.name.trim().toLowerCase())}
+                                                  WHERE id = ${connection.escape(req.body.id)}`
+                                        connection.query(q3,(error,rows,fields)=>{
+                                            if(error) throw error
+                                            res.status(200)
+                                            req.flash('episodio actualizado correctamente')
+                                            res.redirect(`/private/p_index`)
+                                        })                                       
+                                    })
+                                }
+                            }
+                        })
                     }
                 })
             }
