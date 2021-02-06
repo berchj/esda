@@ -10,13 +10,15 @@
                <table>
                    <thead>
                        <th>titulo</th>
-                       <th>puntos</th>                                              
+                       <th>puntos</th>           
+                       <th>subido por</th>                                   
                    </thead>
                    <tbody>
                        <% for(let i = 0; i < data.length; i ++) { %>
                             <tr>
                                 <td><a href="/private/editar-episodio/<%=data[i].id%>"><%=data[i].title%></a></td>
                                 <td><%=data[i].points%></td>
+                                <td><%=data[i].username%></td>
                             </tr>
                        <% } %>
                    </tbody>

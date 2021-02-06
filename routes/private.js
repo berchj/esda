@@ -7,8 +7,55 @@ const path = require('path')
 router.use(fileUpload())
 router.use(flash())
 
+router.use('/private/p_index',(req,res,next)=>{
+    if(!req.session.user){
+        req.flash('message','debe iniciar sesion.')
+        res.redirect('/')
+    }else{
+        next()
+    }
+})
+
 router.get('/ingreso',(req,res)=>{
     res.render('ingreso',{message:req.flash('message')})
+})
+
+router.get('/registro',(req,res)=>{
+    res.render('registro',{message:req.flash('message')})
+})
+
+router.post('/procesar_registro',(req,res)=>{
+    console.log(req.body)
+    pool.getConnection((error,connection)=>{
+        if (error) throw error
+        let q = `SELECT * FROM users WHERE email = ${connection.escape(req.body.email.toLowerCase())}`
+        connection.query(q,(error,rows,fields)=>{
+            if(error) throw error
+            if(rows.length > 0){
+                req.flash('message','email en uso')
+                res.redirect('/registro')
+            }else{
+                let q1 = `SELECT * from users WHERE username = ${connection.escape(req.body.username.trim().toLowerCase())}`
+                connection.query(q1,(error,rows,fields)=>{
+                    if (error) throw error
+                    if(rows.length > 0){
+                        req.flash('message','nombre de usuario en uso')
+                        res.redirect('/registro')
+                    }else{
+                        let q2 = `INSERT INTO users (username,email,password) VALUES (${connection.escape(req.body.username.trim().toLowerCase())},
+                                                                                      ${connection.escape(req.body.email.toLowerCase())},
+                                                                                      ${connection.escape(req.body.password)})`
+                        connection.query(q2,(error,rows,fields)=>{
+                            if (error) throw error
+                            res.status(201)
+                            req.flash('message','Usuario creado con exito, puede iniciar sesion')
+                            res.redirect('/ingreso')
+                        })
+                    }
+                })
+            }
+        })
+    })
 })
 
 router.post('/procesar_ingreso',(req,res)=>{
@@ -36,7 +83,7 @@ router.post('/procesar_ingreso',(req,res)=>{
 router.get('/private/p_index',(req,res)=>{
     pool.getConnection((error,connection)=>{
         if (error) throw error
-        let q = `SELECT * FROM episodes`
+        let q = `select username,episodes.id,points,title from episodes inner join users where episodes.id = users.id`
         connection.query(q,(error,rows,fields)=>{
             if (error) throw error
             res.status(200)
@@ -118,8 +165,7 @@ router.get('/private/editar-episodio/:id',(req,res)=>{
     })
 })
 
-router.post('/procesar_editar',(req,res)=>{
-    console.log(req.body)
+router.post('/procesar_editar',(req,res)=>{    
     console.log(req.files.image.name)
     pool.getConnection((error,connection)=>{
         if (error) throw error

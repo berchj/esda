@@ -5,7 +5,7 @@ const pool = require('../lib/pool')
 router.use(flash())
 
 router.get('/',(req,res)=>{
-    res.render('index')
+    res.render('index',{message:req.flash('message')})
 })
 
 router.get('/episodios',(req,res)=>{

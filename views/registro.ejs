@@ -1,0 +1,21 @@
+<div class="registro">
+    <section class="content">        
+            <section class="formulario">
+                <h4>Registrarse</h4>
+                <% if (message && message.length > 0) {%>
+                    <span><%=message%></span>
+                <% } %>
+                <form action="/procesar_registro" method="POST">
+                    <fieldset>
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="">
+                        <label for="username">Nombre de usuaio</label>
+                        <input type="text" name="username" id="">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="">
+                        <input type="submit" value="Registrarse">
+                    </fieldset>
+                </form>
+            </section>        
+    </section>
+</div>
