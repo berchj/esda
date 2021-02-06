@@ -83,7 +83,7 @@ router.post('/procesar_ingreso',(req,res)=>{
 router.get('/private/p_index',(req,res)=>{
     pool.getConnection((error,connection)=>{
         if (error) throw error
-        let q = `select username,episodes.id,points,title from episodes inner join users where episodes.id = users.id`
+        let q = `select username,episodes.id,points,title from episodes inner join users where episodes.id = users.id order by points desc`
         connection.query(q,(error,rows,fields)=>{
             if (error) throw error
             res.status(200)

@@ -40,4 +40,17 @@ router.get('/episodio/:id',(req,res)=>{
     })
 })
 
+router.get('/vote/:id',(req,res)=>{
+    pool.getConnection((error,connection)=>{
+        if (error) throw error
+        let q = `UPDATE episodes SET points = points + 1 WHERE id = ${req.params.id}`
+        connection.query(q,(error,rows,fields)=>{
+            if (error) throw error
+            res.status(200)
+            res.redirect(`/episodio/${req.params.id}`)
+        })
+        connection.release()
+    })
+})
+
 module.exports = router
