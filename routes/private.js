@@ -24,6 +24,19 @@ router.get('/registro',(req,res)=>{
     res.render('registro',{message:req.flash('message')})
 })
 
+router.get('/user/:id',(req,res)=>{
+    pool.getConnection((error,connection)=>{
+        if (error) throw error
+        let q = `SELECT title,points FROM episodes WHERE id = ${req.params.id} ORDER BY points DESC`
+        connection.query(q,(error,rows,fields)=>{
+            if (error) throw error
+            res.status(200)
+            res.render('private/usuario',{user:req.session.user,data:rows,message:req.flash('message')})
+        })
+        connection.release()
+    })
+})
+
 router.post('/procesar_registro',(req,res)=>{
     console.log(req.body)
     pool.getConnection((error,connection)=>{
