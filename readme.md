@@ -8,7 +8,9 @@ to run this project :
 --
 4 -  import the databasedump -> 'mysql -u ${user} -p ESDA < ESDA.sql 
 --
-5 -  run 'npm run test' to start 
+5 -  in /lib/pool put your user and password of youe mysql-server
 --
-6 -  go to localhost:7200
+6 -  run 'npm run test' to start 
+--
+7 -  go to localhost:7200
 --
