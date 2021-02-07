@@ -1,11 +1,7 @@
 <div class="episodios">
+    <%- include('./partials/public_header')%>
     <section class="content">
-        <%- include('./partials/public_header')%>
-        <section class="episodios-content">
-            <form action="/episodios">
-                <input type="text" name="busqueda" id="" placeholder="Buscar episodio">
-                <input type="submit" value="Buscar">
-            </form> 
+        <section class="episodios-content">            
             <% if(message && message.length > 0) {%>
                 <span><%=message%></span>
             <% } %>          
@@ -18,7 +14,7 @@
                     </ul>
                 </article>
             <% } %>
-        </section>
-        <%- include('./partials/footer')%>
+        </section>        
     </section>
+    <%- include('./partials/footer')%>
 </div>

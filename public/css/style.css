@@ -1,3 +1,53 @@
-div.home{
-    background-color: blueviolet;
+html{
+    background-color: #000;
+    color: #FFF;
+    font-family: 'Courier New', Courier, monospace;
 }
+
+section.content {
+    width: 80%;
+    margin: 0 auto;
+}
+
+header{
+    display: inline-flex;
+}
+
+header > h4 {
+    font-size: 16px;
+    padding: 0.5em;
+    float: left;
+    margin-right: 31em;
+    margin-left: 2em;
+    color: #FFF;
+}
+
+header a {
+    text-decoration: none;
+    padding: 1.8em;
+    float: right;
+    color: #FFF;
+    font-size: 14px;
+}
+
+form input,label{
+    display: block;
+    padding: 0.5em;
+    margin-top: 0.8em;
+}
+
+form.form-buscar{
+    display: inline-flex;
+    margin-right: 0.5em;
+}
+
+header a{
+    transition: 0.4s;  
+    line-height: 2em;  
+}
+
+header a:hover{
+    background-color: #68386A;
+    color: yellow;
+}
+

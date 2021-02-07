@@ -1,8 +1,9 @@
 <div class="home">
+    <%- include('./partials/public_header')%> 
     <section class="content">
         <div class="search">                       
         </div>
-        <%- include('./partials/public_header')%>  
+         
         <% if (message && message.length > 0) {%>
             <span><%=message%></span>
         <% } %>      
