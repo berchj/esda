@@ -7,7 +7,7 @@ const path = require('path')
 router.use(fileUpload())
 router.use(flash())
 
-router.use('/private/p_index',(req,res,next)=>{
+router.use('/private/',(req,res,next)=>{
     if(!req.session.user){
         req.flash('message','debe iniciar sesion.')
         res.redirect('/')
@@ -24,7 +24,7 @@ router.get('/registro',(req,res)=>{
     res.render('registro',{message:req.flash('message')})
 })
 
-router.get('/user/:id',(req,res)=>{
+router.get('/private/user/:id',(req,res)=>{
     pool.getConnection((error,connection)=>{
         if (error) throw error
         let q = `SELECT title,points FROM episodes WHERE id = ${req.params.id} ORDER BY points DESC`
@@ -96,7 +96,7 @@ router.post('/procesar_ingreso',(req,res)=>{
 router.get('/private/p_index',(req,res)=>{
     pool.getConnection((error,connection)=>{
         if (error) throw error
-        let q = `select username,episodes.id,points,title from episodes inner join users where episodes.id = users.id order by points desc`
+        let q = `select episodes.user_id,title,points,username,users.id from episodes inner join users where episodes.user_id = users.id order by points desc;`
         connection.query(q,(error,rows,fields)=>{
             if (error) throw error
             res.status(200)

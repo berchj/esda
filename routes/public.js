@@ -8,10 +8,19 @@ router.get('/',(req,res)=>{
     res.render('index',{message:req.flash('message')})
 })
 
-router.get('/episodios',(req,res)=>{
+router.get('/episodios',(req,res)=>{    
+    let busqueda = (req.query.busqueda) ? req.query.busqueda : ''
+    let modificadorQ = ''
+    if(busqueda != ''){
+        modificadorQ = `WHERE title LIKE '%${busqueda}%' OR
+                              description LIKE '%${busqueda}%'    
+                        `
+    }
+    let q = `SELECT * FROM episodes ${modificadorQ}`
+
+
     pool.getConnection((error,connection)=>{
-        if(error) throw error
-        let q = `SELECT * FROM episodes`
+        if(error) throw error        
         connection.query(q,(error,rows,fields)=>{
             if (error) throw error
             res.status(200)

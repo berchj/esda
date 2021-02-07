@@ -2,6 +2,10 @@
     <section class="content">
         <%- include('./partials/public_header')%>
         <section class="episodios-content">
+            <form action="/episodios">
+                <input type="text" name="busqueda" id="" placeholder="Buscar episodio">
+                <input type="submit" value="Buscar">
+            </form> 
             <% if(message && message.length > 0) {%>
                 <span><%=message%></span>
             <% } %>          
