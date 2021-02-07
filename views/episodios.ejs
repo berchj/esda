@@ -8,6 +8,7 @@
             <% for(let i = 0; i < data.length; i ++){ %>
                 <article class="episodio">
                     <ul>
+                        <li><img src="/images/<%=data[i].image%>" alt=""></li>
                         <li> <a href="/episodio/<%=data[i].id%>"><%=data[i].title%></a></li>
                         <li><%=data[i].description%></li>
                         <li><%=data[i].points%></li>

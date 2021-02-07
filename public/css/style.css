@@ -4,6 +4,18 @@ html{
     font-family: 'Courier New', Courier, monospace;
 }
 
+.logo{
+    width:5%;
+    position: relative;
+    right: 24em;
+}
+
+.stick{
+    position: fixed;
+    top: 0;
+    background-color: #000;
+}
+
 section.content {
     width: 80%;
     margin: 0 auto;
@@ -11,15 +23,18 @@ section.content {
 
 header{
     display: inline-flex;
+    transition: 1.5s;
 }
 
 header > h4 {
     font-size: 16px;
     padding: 0.5em;
     float: left;
-    margin-right: 31em;
+    margin-right: 25em;
     margin-left: 2em;
     color: #FFF;
+    position: relative;
+    top: 0.2em;
 }
 
 header a {
@@ -51,3 +66,68 @@ header a:hover{
     color: yellow;
 }
 
+article.episodio{
+    width: 70%;
+    margin: 0 auto;
+    padding: 5em;
+    
+}
+
+
+article.episodio ul{
+    margin: 0 auto;
+    list-style: none;
+}
+
+article.episodio ul a{
+    font-weight: bolder;
+    font-size: 18px;
+    text-decoration: none;
+    color: #FFF;
+    transition: 0.3s;
+}
+
+article.episodio ul a:hover{
+    color: yellow;
+}
+
+article.episodio ul li{
+    margin: 0 auto;
+    text-align: center;
+    padding: 0.5em;
+    font-size: 12px;
+}
+article.episodio img{
+    width: 80%;
+    margin: 0 auto;
+    height: auto;
+    border-radius: 5px;
+}
+
+.like {
+    width: 7% !important;
+}
+img.title{
+    width: 7% !important;
+}
+
+div.episodio article.episodio ul a{
+    font-size: 66px;
+}
+div.episodio article.episodio ul li:nth-child(1){
+    font-size: 30px;
+    text-transform: capitalize;
+}
+
+div.episodio article.episodio{
+    background-color: #fff;
+    color: #000 !important;
+    border-radius: 5px;
+}
+div.episodio article.episodio a{
+    color: #000;
+    transition: 0.2s;
+}
+div.episodio article.episodio a:hover{
+    color: yellow;
+}

@@ -4,14 +4,14 @@
         <section class="episodio-content">              
                 <article class="episodio">
                     <ul>
-                        <li><%=data.title%></li>
+                        <li><img class="title" src="/images/baphomet.svg" alt="">  <%=data.title%>  <img class="title" src="/images/baphomet.svg" alt=""></li>
                         <li><%=data.description%></li>
-                        <li> <a href="/vote/<%=data.id%>"> <%=data.points%></a></li>
+                        <li> <a href="/vote/<%=data.id%>"> <%=data.points%> <img class="like" src="/images/satanic.svg" alt=""></a></li>
                         <li><img src="/images/<%=data.image%>" alt=""></li>
 
                     </ul>
                 </article>            
-        </section>
-        <%- include('./partials/footer')%>
+        </section>        
     </section>
+    <%- include('./partials/footer')%>
 </div>
