@@ -5,7 +5,7 @@
         <% if ( message && message.length > 0 ){ %>
             <span><%=message%></span>
         <% } %>
-        <form action="/procesar_anadir" method="post" enctype="multipart/form-data">
+        <form onsubmit="return validate()" action="/procesar_anadir" method="post" enctype="multipart/form-data">
             <fieldset>
                 <label for="title">titulo</label>
                 <input type="text" name="title" id="">            

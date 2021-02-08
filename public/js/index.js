@@ -1,4 +1,3 @@
-
 window.addEventListener('scroll',function(){
     if(window.scrollY > 0){
         document.querySelector('header').classList.add('stick')
@@ -30,16 +29,23 @@ function validate(){
             alert('la contraseña debe tener al menos 7 caracteres')
             return false
         }
-    }else if(window.location.pathname.includes('/private/editar-episodio/')){
-        if(document.forms[1]['title'].value.length < 5){
+    }else if (window.location.pathname.includes('/anadir-episodio')){
+        if(document.forms[0]['title'].value.length < 5){
             alert('El titulo debe tener al menos 5 caracteres')
             return false
         }
-        if(document.forms[1]['description'].value.length < 10){
+        if(document.forms[0]['description'].value.length < 10){
             alert('la descripción debe tener al menos 10 caracteres')
             return false
         }
-        
+    }else if (window.location.pathname.includes('/editar-episodio')){
+        if(document.forms[0]['title'].value.length < 5){
+            alert('El titulo debe tener al menos 5 caracteres.')
+            return false
+        }
+        if(document.forms[0]['description'].value.length < 10){
+            alert('la descripción debe tener al menos 10 caracteres')
+        }
     }
     return true
 }        
