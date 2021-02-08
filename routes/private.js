@@ -86,7 +86,7 @@ router.post('/procesar_ingreso',(req,res)=>{
             }else{
                 res.status(404)
                 req.flash('message','email o contraseña invalida')
-                res.redirect('ingreso')
+                res.redirect('/ingreso')
             }
         })
         connection.release()
@@ -178,8 +178,7 @@ router.get('/private/editar-episodio/:id',(req,res)=>{
     })
 })
 
-router.post('/procesar_editar',(req,res)=>{    
-    console.log(req.files.image.name)
+router.post('/procesar_editar',(req,res)=>{     
     pool.getConnection((error,connection)=>{
         if (error) throw error
         let q = `SELECT * FROM episodes WHERE title = ${connection.escape(req.body.title.trim().toLowerCase())}`
@@ -217,6 +216,9 @@ router.post('/procesar_editar',(req,res)=>{
                                             res.redirect(`/private/p_index`)
                                         })                                       
                                     })
+                                }else{
+                                    req.flash('message','para actualizar debe cargarse al menos una imagen')
+                                    res.redirect(`/private/editar-episodio/${req.body.id}`)
                                 }
                             }
                         })

@@ -16,7 +16,7 @@
         </section>
         <section class="editar">
             <h4>actualizar datos: </h4>
-            <form action="/procesar_editar" method="POST" enctype="multipart/form-data">
+            <form onsubmit="return validate()" action="/procesar_editar" method="POST" enctype="multipart/form-data">
                 <fieldset>
                     <input type="hidden" name="id" value="<%=data.id%>">
                     <label for="title">titulo</label>

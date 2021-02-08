@@ -6,7 +6,7 @@
                 <% if (message && message.length > 0) {%>
                     <span><%=message%></span>
                 <% } %>
-                <form action="/procesar_registro" method="POST">
+                <form onsubmit="return validate()" action="/procesar_registro" method="POST">
                     <fieldset>
                         <label for="email">Email</label>
                         <input type="email" name="email" id="">
@@ -14,7 +14,7 @@
                         <input type="text" name="username" id="">
                         <label for="password">Password</label>
                         <input type="password" name="password" id="">
-                        <input type="submit" value="Registrarse">
+                        <input type="submit" name="enviar" value="Registrarse">
                     </fieldset>
                 </form>
             </section>          
