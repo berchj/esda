@@ -131,3 +131,12 @@ div.episodio article.episodio a{
 div.episodio article.episodio a:hover{
     color: yellow;
 }
+div.admin-index .tabla-episodios table{
+    width: 100%;
+    background-color: #FFF;
+    color: #000000;
+    border-radius: 5px;
+}
+div.admin-index .tabla-episodios table tbody tr{
+    text-align: center;
+}

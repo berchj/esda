@@ -100,8 +100,7 @@ router.get('/private/p_index',(req,res)=>{
         connection.query(q,(error,rows,fields)=>{
             if (error) throw error
             res.status(200)
-            res.render('private/p_index',{user:req.session.user,data:rows,message:req.flash('message')})
-            console.log(rows)
+            res.render('private/p_index',{user:req.session.user,data:rows,message:req.flash('message')})            
         })
         connection.release()
     })    
