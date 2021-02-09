@@ -96,11 +96,12 @@ router.post('/procesar_ingreso',(req,res)=>{
 router.get('/private/p_index',(req,res)=>{
     pool.getConnection((error,connection)=>{
         if (error) throw error
-        let q = `select episodes.user_id,title,points,username,users.id from episodes inner join users where episodes.user_id = users.id order by points desc;`
+        let q = `select episodes.id,episodes.user_id,title,points,username from episodes inner join users where episodes.user_id = users.id order by points desc;`
         connection.query(q,(error,rows,fields)=>{
             if (error) throw error
             res.status(200)
             res.render('private/p_index',{user:req.session.user,data:rows,message:req.flash('message')})
+            console.log(rows)
         })
         connection.release()
     })    
@@ -225,6 +226,19 @@ router.post('/procesar_editar',(req,res)=>{
                     }
                 })
             }
+        })
+        connection.release()
+    })
+})
+
+router.get('/borrar-episodio/:id',(req,res)=>{
+    pool.getConnection((error,connection)=>{
+        if (error) throw error
+        let q = `DELETE FROM episodes WHERE id = ${req.params.id}`
+        connection.query(q,(error,rows,fields)=>{
+            if (error) throw error
+            req.flash('message','episodio borrado')
+            res.redirect('/private/p_index')
         })
         connection.release()
     })

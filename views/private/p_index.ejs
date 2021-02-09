@@ -1,6 +1,7 @@
 <div class="admin-index">
+    <%- include('../partials/private_header')%> 
     <section class="content">
-       <%- include('../partials/private_header')%> 
+       
        <section class="admin-actions">
         <% if(message && message.length > 0) {%>
             <span><%=message%></span>
@@ -24,7 +25,7 @@
                    </tbody>
                </table>
            </div>
-       </section>
-       <%- include('../partials/footer')%>
+       </section>       
     </section>
+    <%- include('../partials/footer')%>
 </div>

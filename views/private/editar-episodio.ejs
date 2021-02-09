@@ -14,6 +14,10 @@
                     </ul>
                 </article>            
         </section>
+        <section class="borrar">
+            <h4>Borrar episodio</h4>
+            <a href="/borrar-episodio/<%=data.id%>">Borrar</a>
+        </section>
         <section class="editar">
             <h4>actualizar datos: </h4>
             <form onsubmit="return validate()" action="/procesar_editar" method="POST" enctype="multipart/form-data">
